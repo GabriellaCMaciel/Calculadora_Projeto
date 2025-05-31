@@ -1,0 +1,203 @@
+/* Importa a fonte "Inter" do Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;500&display=swap");
+
+/* Variáveis CSS usadas por todo o projeto */
+:root {
+  --cor-background: #ecf0f3;               /* Cor de fundo padrão da página */
+  --cor-branco: #ffffff;                   /* Cor branca padrão */
+  --cor-sombra-padrao: rgba(0, 0, 0, 0.16);/* Sombra suave para a calculadora */
+  --cor-botao-normal: #78797a;             /* Cor de fundo dos botões padrão */
+  --cor-botao-normal-hover: #afafaf;       /* Cor de fundo dos botões padrão ao passar o mouse */
+  --cor-botao-topo-cinza-escuro: #5e5e60;  /* Cor dos botões AC, DEL, +/- (cinza escuro) */
+  --cor-botao-topo-cinza-escuro-hover: #7b797a; /* Cor hover dos botões AC, DEL, +/- */
+  --cor-botao-laranja: #ff9e0b;            /* Cor dos botões de operação (/, x, -, +, =) */
+  --cor-botao-laranja-hover: #c97c02;      /* Cor hover dos botões de operação */
+  --cor-input-resultado: #504b52;          /* Cor de fundo do campo que exibe o resultado */
+  --cor-botao-fechar: #fe5f56;             /* Cor do botão de fechar (círculo vermelho) */
+  --cor-botao-minimizar: #fdbc2e;          /* Cor do botão de minimizar (círculo amarelo) */
+  --cor-botao-maximizar: #28c840;          /* Cor do botão de maximizar (círculo verde) */
+  --cor-borda-botoes: rgba(0, 0, 0, 0.4);   /* Cor das bordas finas entre os botões */
+  --cor-borda-calculadora: rgba(0, 0, 0, 1);/* Borda da calculadora */
+}
+
+/* Estilos globais aplicados a todos elementos (*) */
+* {
+  font-family: "Inter", sans-serif;       /* Fonte padrão: Inter */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;                 /* Padding e border contam dentro das medidas */
+  letter-spacing: 0px;                    /* Espaçamento padrão entre letras */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      /* Suavização de fontes */
+  scroll-behavior: smooth;                /* Rolagem suave ao navegar por âncoras */
+  margin: 0;                              /* Remove margem padrão */
+  background: var(--cor-background);      /* Aplica cor de fundo a todos */
+  outline: none;
+}
+
+/* Contêiner que ocupa a altura total da viewport e centraliza o conteúdo */
+.conteudo {
+  height: 100vh;
+  display: flex;
+  justify-content: center;  /* Centraliza horizontalmente */
+  align-items: center;      /* Centraliza verticalmente */
+}
+
+/* Estrutura externa da calculadora */
+.conteudo .calculadora {
+  border: 1px solid var(--cor-borda-calculadora); /* Borda preta em volta */
+  position: relative;        /* Para posicionar os botões de janela sobrepostos */
+  border-radius: 10px;       /* Cantos arredondados */
+  box-shadow: 5px 5px 12px var(--cor-sombra-padrao); /* Sombra sutil */
+}
+
+/* Estilos do cabeçalho com as opções de janela (fechar, minimizar, maximizar) */
+.conteudo .calculadora .opcoes__janela {
+  display: flex;
+  position: absolute; /* Posiciona sobre a calculadora */
+  top: 7px;
+  left: 7px;
+  background-color: transparent;
+  column-gap: 7px;     /* Espaçamento entre os círculos */
+}
+
+/* Cada círculo (botão de janela) */
+.conteudo .calculadora .opcoes__janela div {
+  width: 12px;
+  height: 12px;
+  background-color: red;    /* Cor padrão, depois sobrescrita para cada posição */
+  border-radius: 50%;       /* Forma de círculo */
+  position: relative;       /* Para posicionar ícones via ::after */
+}
+
+/* Pseudoelemento para exibir "x", "-", "+" ao passar o mouse */
+.conteudo .calculadora .opcoes__janela div::after {
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 11px;
+  font-size: 10px;
+  cursor: pointer; /* Muda cursor para pointer */
+}
+
+/* Define cor vermelha para o primeiro círculo (fechar) */
+.conteudo .calculadora .opcoes__janela div:nth-child(1) {
+  background-color: var(--cor-botao-fechar);
+}
+
+/* Define cor amarela para o segundo círculo (minimizar) */
+.conteudo .calculadora .opcoes__janela div:nth-child(2) {
+  background-color: var(--cor-botao-minimizar);
+}
+
+/* Define cor verde para o terceiro círculo (maximizar) */
+.conteudo .calculadora .opcoes__janela div:nth-child(3) {
+  background-color: var(--cor-botao-maximizar);
+}
+
+/* Exibe "x" ao passar o mouse sobre o botão de fechar */
+.conteudo .calculadora .opcoes__janela div:nth-child(1):hover:after {
+  content: "x";
+}
+
+/* Exibe "-" ao passar o mouse sobre o botão de minimizar */
+.conteudo .calculadora .opcoes__janela div:nth-child(2):hover:after {
+  content: "-";
+  line-height: 12px; /* Pequena correção de alinhamento vertical */
+  font-size: 12px;   /* Tamanho maior para o traço */
+}
+
+/* Exibe "+" ao passar o mouse sobre o botão de maximizar */
+.conteudo .calculadora .opcoes__janela div:nth-child(3):hover:after {
+  content: "+";
+}
+
+/* Grade que contém o display e os botões */
+.conteudo .calculadora .conteudo__botoes {
+  display: grid;
+  background-color: var(--cor-input-resultado); /* Fundo roxo-escuro para o display */
+  border-radius: 10px; /* Cantos arredondados combinando com a calculadora */
+}
+
+/* Estilo do campo de input (display da calculadora) */
+.conteudo .calculadora .conteudo__botoes input {
+  grid-column: span 4;   /* Ocupa 4 colunas na grade */
+  height: 70px;
+  width: 260px;
+  background-color: var(--cor-input-resultado);
+  border: none;          /* Remove borda padrão do input */
+  border-radius: 10px;   /* Cantos arredondados */
+  color: var(--cor-branco); /* Texto em branco */
+  font-size: 50px;       /* Tamanho grande para mostrar números */
+  text-align: right;     /* Alinha o texto à direita */
+  margin: auto;          /* Centraliza horizontalmente dentro da célula */
+  margin-top: 20px;      /* Espaço superior para não grudar no topo */
+  font-weight: 200;      /* Fina espessura de fonte */
+}
+
+/* Cor do placeholder (0) no Firefox */
+.conteudo .calculadora .conteudo__botoes input::placeholder {
+  color: var(--cor-branco);
+  opacity: 1;
+}
+
+/* Estilo de cada botão (<a>) dentro da grade */
+.conteudo .calculadora .conteudo__botoes a {
+  height: 50px;
+  width: 70px;
+  display: flex;
+  justify-content: center; /* Centraliza texto horizontalmente */
+  align-items: center;     /* Centraliza texto verticalmente */
+  font-size: 20px;         /* Tamanho padrão dos números e símbolos */
+  border: none;            /* Remove borda padrão */
+  background-color: var(--cor-botao-normal); /* Cor cinza para botões padrão */
+  color: var(--cor-branco);
+  cursor: pointer;         /* Cursor de clique */
+  border-right: 1px solid var(--cor-borda-botoes); /* Linha fina entre colunas */
+  border-top: 1px solid var(--cor-borda-botoes);   /* Linha fina entre linhas */
+  user-select: none;       /* Impede seleção de texto ao clicar */
+}
+
+/* Efeito hover geral para botões padrão */
+.conteudo .calculadora .conteudo__botoes a:hover {
+  background-color: var(--cor-botao-normal-hover);
+}
+
+/* Botões que ocupam duas colunas (grid-span-2) */
+.conteudo .calculadora .conteudo__botoes a.grid-span-2 {
+  grid-column: span 2; /* Ocupa 2 colunas na grade */
+  width: 100%;         /* Largura 100% da célula */
+}
+
+/* Estilo específico para os botões iniciais (AC, DEL, +/-): cinza escuro */
+.conteudo .calculadora .conteudo__botoes a.botoes__iniciais {
+  background-color: var(--cor-botao-topo-cinza-escuro);
+}
+
+/* Hover para botões iniciais */
+.conteudo .calculadora .conteudo__botoes a.botoes__iniciais:hover {
+  background-color: var(--cor-botao-topo-cinza-escuro-hover);
+}
+
+/* Seleciona o primeiro botão de cada linha de 4 e o último botão (=), aplicando cor laranja */
+.conteudo .calculadora .conteudo__botoes a:nth-child(4n + 1),
+.conteudo .calculadora .conteudo__botoes a:last-child {
+  background-color: var(--cor-botao-laranja);
+  border-right: none; /* Remove borda direita para visual mais limpo */
+}
+
+/* Hover para botões laranja (operadores e = ) */
+.conteudo .calculadora .conteudo__botoes a:nth-child(4n + 1):hover,
+.conteudo .calculadora .conteudo__botoes a:last-child:hover {
+  background-color: var(--cor-botao-laranja-hover);
+}
+
+/* Classe para arredondar canto inferior esquerdo do botão 0 */
+.borda-radius-esquerda {
+  border-bottom-left-radius: 10px;
+}
+
+/* Classe para arredondar canto inferior direito do botão = */
+.borda-radius-direita {
+  border-bottom-right-radius: 10px;
+}
