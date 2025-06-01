@@ -37,15 +37,15 @@ O layout foi inspirado em calculadoras de mesa, utilizando um design clean e cor
 
 ## 📂 Estrutura de Pastas
 
-calculadora-projeto/
-├── index.html # Arquivo HTML principal
-├── styles/
-│ └── styles.css # Arquivo de estilo CSS
-├── script/
-│ └── script.js # Lógica JavaScript para a calculadora
-├── docs/
-│ └── captura.gif # Captura de tela / GIF demonstrativo
-└── README.md # Este arquivo de documentação
+calculadora-projeto/   
+├── index.html # Arquivo HTML principal   
+├── styles/   
+│ └── styles.css # Arquivo de estilo CSS   
+├── script/   
+│ └── script.js # Lógica JavaScript para a calculadora   
+├── docs/   
+│ └── captura.gif # Captura de tela / GIF demonstrativo   
+└── README.md # Este arquivo de documentação   
 
 
 - **`index.html`**: contém a estrutura da calculadora, incluindo o display (campo de input) e botões (números e operações).
